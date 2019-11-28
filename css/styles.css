@@ -1,0 +1,11 @@
+.item {
+	border: 1px solid #c2c2c2;
+	border-radius: 4px;
+	padding: 5px;
+	margin-bottom: 5px;
+	background: #f2f2f2;
+}
+
+.item:hover {
+	background: #eaeaea;
+}
