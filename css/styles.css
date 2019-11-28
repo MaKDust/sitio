@@ -1,3 +1,12 @@
+.navbar-default {
+background-color:#45ccb8;
+border-color: #e7e7e7;
+}
+
+.navbar-default .navbar-brand {
+ color:black;
+}
+
 .item {
 	border: 1px solid #c2c2c2;
 	border-radius: 4px;

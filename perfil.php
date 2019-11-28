@@ -6,6 +6,8 @@
 		<meta charset="UTF-8">
 		<title>Document</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!--CSS-->
+    	<link rel="stylesheet" href="css/styles.css">
 	</head>
 	<body>
 		
@@ -24,7 +26,7 @@
 				    </div>
 		
 				    <ul class="nav navbar-nav navbar-right">
-				    	<li><a href="index.php">Nombre Usuario</a></li>
+				    	<li><a href="perfil.php">Nombre Usuario</a></li>
 				    </ul>
 				  </div>
 				</nav>
@@ -42,6 +44,9 @@
 			</section>
 		</div>
 		
+
+		
+
 		<script
 			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
