@@ -1,4 +1,43 @@
-<?php  ?>
+<?php  	
+
+session_start();
+
+require_once 'controladores/funciones.php';
+
+//chequar si esta logueado
+if (!$_SESSION['logged_in'] = true) {
+  ?>
+  <a href="logout.php"><button>Debes loguearte</button></a>
+  <?php
+ exit();
+}
+?>
+<?php
+
+if($_POST) {
+	$arrayDeErrores = validarRegistracion($_POST);
+    if($arrayDeErrores) {
+	    $arrayUsuarios = abrirBBDD('usuarios.json');
+	    foreach ($arrayUsuarios as $usuarioJson) {
+	      $userFinal = json_decode($usuarioJson, true);
+	       if ($_POST['email'] == $userFinal['email']) {
+	       	if (password_verify($_POST['password'], $userFinal['password'])) {
+	        	$_SESSION['nombre'] = $userFinal['nombre'];
+	        	$_SESSION['apellido']  = $userFinal['apellido'];
+		        $_SESSION['email'] = $userFinal['email'];
+		        $_SESSION['telefono'] = $userFinal['telefono'];
+		        $_SESSION['direccion'] = $userFinal['direccion'];
+		        $_SESSION['ciudad'] = $userFinal['ciudad'];
+		        $_SESSION['pais'] = $userFinal['pais'];
+		        $_SESSION['codigoPostal'] = $userFinal['codigoPostal'];
+			}
+           }
+		}
+	}
+}
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,30 +54,7 @@
 	</head>
 	<body>
 		
-		<div>
-			<header>
-				<nav class="navbar navbar-default">
-				  <div class="container">
-				    <div class="navbar-header">
-				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				        <span class="sr-only">Toggle navigation</span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				      </button>
-				      <a class="navbar-brand" href="index.php">Sitio</a>
-				    </div>
-		
-				    <ul class="nav navbar-nav navbar-right">
-				    	<li><a href="contacto.php">Contacto</a></li>
-				    	<li><a href="preguntas.php">Preguntas Frecuentes</a></li>
-				    	<li><a href="carrito.php"><i class="fas fa-shopping-basket p-2"></i></a></li>
-				    	<li><a href="perfil.php">lucky.jesse</a></li>
-
-				    </ul>
-				  </div>
-				</nav>
-			</header>
+		<?php require_once 'partials/header.php' ?>
 			
 			<section class="container-fluid perfil">
 				<div class="row">
@@ -62,14 +78,14 @@
 											<div class="row">
 												<div class="col-lg-6">
 													<div class="form-group focused">
-														<label class="form-control-label" for="input-username">Apodo</label>
-														<p>lucky.jesse</p>
+														<label class="form-control-label" for="input-nombre">Nombre</label>
+														<p><?= $_SESSION['nombre']?></p>
 													</div>
 												</div>
 												<div class="col-lg-6">
 													<div class="form-group">
-														<label class="form-control-label" for="input-email">Email </label>
-														<p>lucky@jesse.com</p>
+														<label class="form-control-label" for="input-email">Apellido </label>
+														<p><?= $_SESSION['apellido']?></p>
 													</div>
 												</div>
 											</div>
@@ -77,13 +93,13 @@
 												<div class="col-lg-6">
 													<div class="form-group focused">
 														<label class="form-control-label" for="input-first-name">Nombre</label>
-														<p>lucky</p>
+														<p><?= $_SESSION['email']?></p>
 													</div>
 												</div>
 												<div class="col-lg-6">
 													<div class="form-group focused">
-														<label class="form-control-label" for="input-last-name">Apellido</label>
-														<p>jesse</p>
+														<label class="form-control-label" for="input-last-name">Telefono</label>
+														<p><?= $_SESSION['telefono']?></p>
 													</div>
 												</div>
 											</div>
@@ -96,7 +112,7 @@
 												<div class="col-md-12">
 													<div class="form-group focused">
 														<label class="form-control-label" for="input-address">Direccion</label>
-														<p>25 de Mayo 772</p>
+														<p><?= $_SESSION['direccion']?></p>
 													</div>
 												</div>
 											</div>
@@ -104,19 +120,19 @@
 												<div class="col-lg-4">
 													<div class="form-group focused">
 														<label class="form-control-label" for="input-city">Ciudad</label>
-														<p>San Miguel de Tucuman</p>
+														<p><?= $_SESSION['ciudad']?></p>
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group focused">
-														<label class="form-control-label" for="input-country">Provincia</label>
-														<p>Tucuman</p>
+														<label class="form-control-label" for="input-country">Pais</label>
+														<p><?= $_SESSION['pais']?></p>
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group">
 														<label class="form-control-label" for="input-country">Codigo postal</label>
-														<p>4000</p>
+														<p><?= $_SESSION['codigoPostal']?></p>
 													</div>
 												</div>
 											</div>
@@ -128,53 +144,9 @@
 						</div>
 				</div>
 			</section>	
-			<div class="container-fluid footer"><!-- Footer -->
-			<div class="row">
-				<div class="col-lg-5 col-xs-12 about-company">
-					<h2>Redes Sociales</h2>
-				    <p class="pr-5 text-white-50">Seguinos en nuestras redes y enterate de todas nuestras ofertas de ultima hora</p>
-				    <p>
-				    	<a href="#"><i class="fab fa-facebook-square"></i></a>
-						<a href="#"><i class="fab fa-twitter-square"></i></a>
-						<a href="#"><i class="fab fa-linkedin"></i></a>
-						<a href="#"><i class="fab fa-youtube-square"></i></a>
-						<a href="#"><i class="fab fa-instagram"></i></a>
-				    </p>
-				</div>
-				<div class="col-lg-3 col-xs-12 links">
-					<h4 class="mt-lg-0 mt-sm-3">Mapa del Sitio</h4>
-				    <ul class="m-0 p-0">
-				    	<li>- <a href="index.php">Inicio</a></li>
-				    	<li>- <a href="contacto.php">Contacto</a></li>
-					    <li>- <a href="preguntas.php">Preguntas Frecuentes</a></li>
-					</ul>
-				</div>
-				<div class="col-lg-4 col-xs-12 location">
-					<h4 class="mt-lg-0 mt-sm-4">Contactos</h4>
-				    <p><i class="fas fa-home"></i></i>  Calle Falsa Sin Numero</p>
-				    <p class="mb-0"><i class="fa fa-phone p-3"></i>  (381) 555-5555</p>
-				    <p><i class="fa fa-envelope-o mr-3"></i>  info@sitio.com</p>
-				</div>
-			</div>
-		</div><!--/Footer -->		
+			<?php require_once 'partials/footer.php' ?><!--Footer -->		
 
-			<!--<section class="container-fluid perfil">
-				<div class="banner col-md-2"></div>
-				<div class="col-md-8">
-					<div class="panel panel-default">
-					  <div class="panel-body">
-					    <h4>Perfil de Usuario</h4>
-						<p>Nombre: </p> 
-						<p>Apellido: </p>
-						<p>Teléfono: </p>
-						<p>Email: </p>
-					  </div>
 					</div>
-				<div class="col-md-2"></div>
-				</div>
-				
-			</section>-->
-		</div>
 		
 
 		

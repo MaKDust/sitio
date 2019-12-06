@@ -1,4 +1,5 @@
-<?php  ?>
+<?php  
+session_start();?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,31 +13,8 @@
     	<script src="https://kit.fontawesome.com/3b98d2cca3.js" crossorigin="anonymous"></script>
 	</head>
 	<body>
-		<div>
-			<header>
-				<nav class="navbar navbar-default">
-				  <div class="container">
-				    <div class="navbar-header">
-				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				        <span class="sr-only">Toggle navigation</span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				      </button>
-				      <a class="navbar-brand" href="index.php">Sitio</a>
-				    </div>
 		
-				    <ul class="nav navbar-nav navbar-right">
-				    	<li><a href="login.php">Login</a></li>
-				    	<li><a href="registro.php">Registro</a></li>
-				    	<li><a href="preguntas.php">Preguntas Frecuentes</a></li>
-				    	<li><a href="perfil.php">Mi Perfil</a></li>
-				    	<li><a href="carrito.php"><i class="fas fa-shopping-basket p-2"></i></a></li>
-				    	
-				    </ul>
-				  </div>
-				</nav>
-			</header>
+		<?php require_once 'partials/header.php' ?>
 			
 			
 <div class="conteiner-fluid contacto">
@@ -135,78 +113,9 @@
   </div>
 </div>
 
-<div class="container-fluid footer"><!-- Footer -->
-			<div class="row">
-				<div class="col-lg-5 col-xs-12 about-company ">
-					<h2>Redes Sociales</h2>
-				    <p class="pr-5 text-white-50">Seguinos en nuestras redes y enterate de todas nuestras ofertas de ultima hora</p>
-				    <p>
-				    	<a href="#"><i class="fab fa-facebook-square"></i></a>
-						<a href="#"><i class="fab fa-twitter-square"></i></a>
-						<a href="#"><i class="fab fa-linkedin"></i></a>
-						<a href="#"><i class="fab fa-youtube-square"></i></a>
-						<a href="#"><i class="fab fa-instagram"></i></a>
-				    </p>
-				</div>
-				<div class="col-lg-3 col-xs-12 links">
-					<h4 class="mt-lg-0 mt-sm-3">Mapa del Sitio</h4>
-				    <ul class="m-0 p-0">
-				    	<li>- <a href="login.php">Login</a></li>
-					    <li>- <a href="registro.php">Registro</a></li>
-					    <li>- <a href="preguntas.php">Preguntas Frecuentes</a></li>
-					    <li>- <a href="perfil.php">Mi Perfil</a></li>
-					</ul>
-				</div>
-				<div class="col-lg-4 col-xs-12 location">
-					<h4 class="mt-lg-0 mt-sm-4">Contactos</h4>
-				    <p><i class="fas fa-home"></i></i>  Calle Falsa Sin Numero</p>
-				    <p class="mb-0"><i class="fa fa-phone p-3"></i>  (381) 555-5555</p>
-				    <p><i class="fa fa-envelope-o mr-3"></i>  info@sitio.com</p>
-				</div>
-			</div>
-		</div><!--/Footer -->	
+<?php require_once 'partials/footer.php' ?><!--Footer -->	
 
 </div>
-<!--Section: Contact v.1-->
-
-
-
-
-			<!--
-			<section class="container-fluid">
-				<div class="row">
-					<div class="col-md-4"></div>
-					<div class="col-md-4">
-						<form>
-							<h4>Contacto</h4>
-							<div class="form-group">
-								<label for="nombres">Nombre y Apellido</label>
-								<input id="nombres" type="text" class="form-control" placeholder="Nombre y Apellido">
-							</div>
-							<div class="form-group">
-								<label for="email">Email</label>
-								<input id="email" type="email" class="form-control" placeholder="Email">
-							</div>
-							<div class="form-group">
-								<label for="asunto">Asunto</label>
-								<input id="asunto" type="text" class="form-control" placeholder="Asunto">
-							</div>
-							<div class="form-group">
-								<label for="mensaje">Mensaje</label>
-								<textarea id="mensaje" class="form-control" rows="8"></textarea>
-							</div>
-							<button type="submit" class="btn btn-default">Enviar</button>
-							<button type="reset" class="btn btn-default pull-right">Cancelar</button>
-						</form>
-					</div>
-					<div class="col-md-4"></div>
-				</div>
-			</section>
-		</div>
-		-->
-
-
-
 
 		<script
 			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

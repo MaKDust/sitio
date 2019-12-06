@@ -14,7 +14,7 @@
             <?php if(isset($_SESSION['email'])): ?>
                 <li><a href="contacto.php">Contacto</a></li>
                 <li><a href="preguntas.php">Preguntas Frecuentes</a></li>
-                <li><a href="perfil.php"><?= isset($_SESSION['email']) ? $_SESSION['email'] : "" ?></a></li>
+                <li><a href="perfil.php"><?= $_SESSION['nombre']?></a></li>
                 <li><a href="carrito.php"><i class="fas fa-shopping-basket p-2"></i></a></li>
                 <li><a href="logout.php">Log out</a></li>               
             <?php endif; ?>

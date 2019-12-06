@@ -38,7 +38,16 @@ function validarRegistracion($unArray){
       elseif(!filter_var($unArray['email'], FILTER_VALIDATE_EMAIL)) {
           $errores['email'] = "Debes ingresar un email valido."; 
       }
+      elseif ($_POST) {
+          $arrayUsuarios = abrirBBDD('usuarios.json');
+          foreach ($arrayUsuarios as $usuarioJson) {
+            $userFinal = json_decode($usuarioJson, true);
+            if ($_POST['email'] == $userFinal['email']){
+              $errores['email'] = "Este Email ya tiene una cuenta registrada.";
+            }
+      }
     }
+  }
     
     //validar campo "telefono"
     if(isset($unArray['telefono'])) {
@@ -118,7 +127,6 @@ function validarRegistracion($unArray){
     }else{
       return $errores;
     }
-  
   }
 
 
@@ -133,9 +141,6 @@ function persistirDato($arrayE, $campo) {
 }
 
 
-function ararArrayUsuario(){
-
-}
 
 
 function abrirBBDD($unArchivo) {

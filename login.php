@@ -1,30 +1,41 @@
 <?php 
 
-
 session_start();
+
 require_once 'controladores/funciones.php';
+
 $arrayDeErrores = "";
+$msg="";
 
 if($_POST) {
-    $arrayDeErrores = validarRegistracion($_POST);
+	$arrayDeErrores = validarRegistracion($_POST);
     if($arrayDeErrores) {
-    // LOGUEO AL USUARIO
-    $arrayUsuarios = abrirBBDD('usuarios.json');
-    foreach ($arrayUsuarios as $usuarioJson) {
-      $userFinal = json_decode($usuarioJson, true);
-       if ($_POST['email'] == $userFinal['email']) {
-         if (password_verify($_POST['password'], $userFinal['password'])) {
-         	 $_SESSION['email'] = $userFinal['email'];
-	       		if(isset($_POST['recordarme']) && $_POST['recordarme'] == "on") {
-	                setcookie('userEmail', $userFinal['email'], time() + 60 * 60 * 24 * 7);
-	                setcookie('userPass', $userFinal['password'], time() + 60 * 60 * 24 * 7);
-	            }
-
-           header('Location: index.php');
-         }
-       }
-     }
-   }
+	    $arrayUsuarios = abrirBBDD('usuarios.json');
+	    foreach ($arrayUsuarios as $usuarioJson) {
+	      $userFinal = json_decode($usuarioJson, true);
+	       if ($_POST['email'] == $userFinal['email']) {
+	       	if (password_verify($_POST['password'], $userFinal['password'])) {
+	        	$_SESSION['nombre'] = $userFinal['nombre'];
+	        	$_SESSION['apellido']  = $userFinal['apellido'];
+		        $_SESSION['email'] = $userFinal['email'];
+		        $_SESSION['telefono'] = $userFinal['telefono'];
+		        $_SESSION['direccion'] = $userFinal['direccion'];
+		        $_SESSION['ciudad'] = $userFinal['ciudad'];
+		        $_SESSION['pais'] = $userFinal['pais'];
+		        $_SESSION['codigoPostal'] = $userFinal['codigoPostal'];
+		        $_SESSION['logged_in'] = true;	
+		       	if(isset($_POST['recordarme']) && $_POST['recordarme'] == "on") {
+		        	setcookie('userEmail', $userFinal['email'], time() + 60 * 60 * 24 * 7);
+		            setcookie('userPass', $userFinal['password'], time() + 60 * 60 * 24 * 7);
+		        }
+	        header('Location: index.php');
+	        }else{
+	        	$msg= "usuario incorrecto";
+	         	break;
+	         }
+       		}
+    	}
+    }
 }
 
 ?>
@@ -61,9 +72,6 @@ if($_POST) {
 				  </div>
 				</nav>
 			</header>
-			
-
-
 			<section class="container-fluid login">
 				<div class="row">
 					<div class="col-md-4"></div>
@@ -94,7 +102,7 @@ if($_POST) {
 								placeholder="Password"
 								>
 								<small class="text-danger">
-								 <?= isset($arrayDeErrores['password'])?$arrayDeErrores['password']:""?>
+								 <?= isset($arrayDeErrores['password'])?$arrayDeErrores['password']:$msg?>
 								</small>
 							</div>
 							<div class="form-group">
@@ -115,47 +123,9 @@ if($_POST) {
 					<div class="col-md-4"></div>
 				</div>
 			</section>
-
-
-
-			<footer class="container-fluid footer"><!-- Footer -->
-			<div class="row">
-				<div class="col-lg-5 col-xs-12 about-company">
-					<h2>Redes Sociales</h2>
-				    <p class="pr-5 text-white-50">Seguinos en nuestras redes y enterate de todas nuestras ofertas de ultima hora</p>
-				    <p>
-				    	<a href="#"><i class="fab fa-facebook-square"></i></a>
-						<a href="#"><i class="fab fa-twitter-square"></i></a>
-						<a href="#"><i class="fab fa-linkedin"></i></a>
-						<a href="#"><i class="fab fa-youtube-square"></i></a>
-						<a href="#"><i class="fab fa-instagram"></i></a>
-				    </p>
-				</div>
-				<div class="col-lg-3 col-xs-12 links">
-					<h4 class="mt-lg-0 mt-sm-3">Mapa del Sitio</h4>
-				    <ul class="m-0 p-0">
-				    	<li>- <a href="index.php">Inicio</a></li>
-				    	<li>- <a href="registro.php">Registro</a></li>
-					    <li>- <a href="contacto.php">Contacto</a></li>
-					    <li>- <a href="preguntas.php">Preguntas Frecuentes</a></li>
-					</ul>
-				</div>
-				<div class="col-lg-4 col-xs-12 location">
-					<h4 class="mt-lg-0 mt-sm-4">Contactos</h4>
-				    <p><i class="fas fa-home"></i></i>  Calle Falsa Sin Numero</p>
-				    <p class="mb-0"><i class="fa fa-phone p-3"></i>  (381) 555-5555</p>
-				    <p><i class="fa fa-envelope-o mr-3"></i>  info@sitio.com</p>
-				</div>
-			</div>
-		</footer><!--/Footer -->	
+			<?php require_once 'partials/footer.php' ?><!--Footer -->		
 		</div>
-		
-
-
-		<script
-			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-			  crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	</body>
 	
