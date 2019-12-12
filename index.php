@@ -72,7 +72,12 @@ require_once 'controladores/funciones.php';
 		<div class="container-fluid"><!-- PRODUCTOS -->
 			
 			<div class="col-md-3 column productbox">
-				<a href="descripcionProducto.php"><img src="http://placehold.it/460x250/e67e22/ffffff&text=HTML5" class="img-responsive"></a>
+				<a href="descripcionProducto.php">
+					<img 
+					src="http://placehold.it/460x250/e67e22/ffffff&text=HTML5" 
+					class="img-responsive"
+					>
+				</a>
 				<div class="producttitle">
 					<p>Producto</p>
 				</div>

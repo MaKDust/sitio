@@ -1,6 +1,7 @@
 <?php  
 session_start();?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -26,7 +27,7 @@ session_start();?>
     <div class="col-md-4">
 
       <!--Form with header-->
-      <div class="card">
+      <form method="post" action="enviar_email.php">
 
         <div class="card-body">
           <!--Header-->
@@ -40,39 +41,39 @@ session_start();?>
           <!--Body-->
           <div class="md-form">
             <i class="fas fa-user prefix grey-text"></i>
-            <label for="form-name">Nombre</label>
-            <input type="text" id="form-name" class="form-control">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" class="form-control">
            
           </div>
 
           <div class="md-form">
             <i class="fas fa-envelope prefix grey-text"></i>
-            <label for="form-email">Email</label>
-            <input type="text" id="form-email" class="form-control">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email"  class="form-control">
             
           </div>
 
           <div class="md-form">
             <i class="fas fa-tag prefix grey-text"></i>
-            <label for="form-Subject">Asunto</label>
-            <input type="text" id="form-Subject" class="form-control">
+            <label for="asunto">Asunto</label>
+            <input type="text" id="asunto" name="asunto" class="form-control">
             
           </div>
 
           <div class="md-form">
             <i class="fas fa-pencil-alt prefix grey-text"></i>
-             <label for="form-text">Comentario</label>
-            <textarea id="form-text" class="form-control md-textarea" rows="3"></textarea>
+             <label for="comentario">Comentario</label>
+            <textarea id="comentario" name="comentario" class="form-control md-textarea" rows="3"></textarea>
            
           </div>
 
           <div class="text-center mt-4">
-            <button class="btn btn-primary">Enviar</button>
+            <button class="btn btn-primary" name="enviar" type="submit" value="Enviar" >Enviar</button>
           </div>
 
         </div>
 
-      </div>
+      </form>
       
 
     </div>

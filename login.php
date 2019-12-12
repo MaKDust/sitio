@@ -23,12 +23,14 @@ if($_POST) {
 		        $_SESSION['ciudad'] = $userFinal['ciudad'];
 		        $_SESSION['pais'] = $userFinal['pais'];
 		        $_SESSION['codigoPostal'] = $userFinal['codigoPostal'];
+		        $_SESSION['password'] = $userFinal['password'];
+		        
 		        $_SESSION['logged_in'] = true;	
 		       	if(isset($_POST['recordarme']) && $_POST['recordarme'] == "on") {
 		        	setcookie('userEmail', $userFinal['email'], time() + 60 * 60 * 24 * 7);
 		            setcookie('userPass', $userFinal['password'], time() + 60 * 60 * 24 * 7);
 		        }
-	        header('Location: index.php');
+	        header('Location: perfil.php');
 	        }else{
 	        	$msg= "usuario incorrecto";
 	         	break;
@@ -117,7 +119,7 @@ if($_POST) {
             					</div>
        						 </div>
 							<button type="reset" class="btn btn-danger">Cancelar</button>
-							<button type="submit" class="btn btn-primary pull-right">Ingresar</button>
+							<button type="submit" name="submitLogin" class="btn btn-primary pull-right">Ingresar</button>
 						</form>
 					</div>
 					<div class="col-md-4"></div>

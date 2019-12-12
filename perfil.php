@@ -1,27 +1,43 @@
 <?php  	
 
-session_start();
+
 
 require_once 'controladores/funciones.php';
+session_start();
 
-//chequar si esta logueado
-if (!$_SESSION['logged_in'] = true) {
-  ?>
-  <a href="logout.php"><button>Debes loguearte</button></a>
-  <?php
- exit();
+
+if (isset($_POST['enviarFoto'])) { 
+	$foto = $_FILES['foto'];
+	
+	$nombreFoto = $_FILES['foto']['name'];
+	$extensionFoto = $_FILES['foto']['type'];
+	$nombreFotoTemporal = $_FILES['foto']['tmp_name'];
+	$errorFoto = $_FILES['foto']['error'];
+	$tamanioFoto = $_FILES['foto']['size'];
+
+			$separar = explode('.', $nombreFoto);
+			$extencion = strtolower(end($separar));
+			$nombreNuevo = $_SESSION['telefono'].'.'.$extencion;
+			$destinoFoto = 'img/'.$nombreNuevo;
+
+			$arrayDeErrores = validarRegistracion($_POST);
+		    
+			$_SESSION['nombrefoto'] = $nombreNuevo;
+			move_uploaded_file($nombreFotoTemporal, $destinoFoto);
+			header("Location: perfil.php?exito");
+		
 }
-?>
-<?php
 
-if($_POST) {
+
+
+if($_SESSION['email']) {
 	$arrayDeErrores = validarRegistracion($_POST);
     if($arrayDeErrores) {
 	    $arrayUsuarios = abrirBBDD('usuarios.json');
 	    foreach ($arrayUsuarios as $usuarioJson) {
 	      $userFinal = json_decode($usuarioJson, true);
-	       if ($_POST['email'] == $userFinal['email']) {
-	       	if (password_verify($_POST['password'], $userFinal['password'])) {
+	       if ($_SESSION['email'] == $userFinal['email']) {
+	       	if ($_SESSION['password'] = $userFinal['password']) {
 	        	$_SESSION['nombre'] = $userFinal['nombre'];
 	        	$_SESSION['apellido']  = $userFinal['apellido'];
 		        $_SESSION['email'] = $userFinal['email'];
@@ -30,11 +46,27 @@ if($_POST) {
 		        $_SESSION['ciudad'] = $userFinal['ciudad'];
 		        $_SESSION['pais'] = $userFinal['pais'];
 		        $_SESSION['codigoPostal'] = $userFinal['codigoPostal'];
+		        
 			}
            }
 		}
 	}
 }
+
+// if (!$_SESSION['logged_in'] = true) {
+//   '?'>
+//   <!--<a href="logout.php"><button>Debes loguearte</button></a>-->
+//   <?php
+//  exit();
+// }
+
+
+
+
+
+
+
+
 
 
 ?>
@@ -58,7 +90,17 @@ if($_POST) {
 			
 			<section class="container-fluid perfil">
 				<div class="row">
-					<div class="col-md-3"></div>
+					<div class="col-md-1"></div>
+					<div class="col-md-2 "> 
+						<h4 class="text-center">FOTO PERFIL</h4> 
+						<img class="img-responsive" src= <?= isset($_SESSION['nombrefoto']) ?"img/".$_SESSION['nombrefoto'] : "img/fotoPerfil.jpg" ?>>
+						<form action="" method="POST" enctype="multipart/form-data" accept="image/*">
+							<input name="foto" type="file" />
+							<button type="submit" name="enviarFoto">Enviar fichero</button>
+						</form>
+							
+					</div>
+					<div class="col-md-1"></div>
 						<div class="col-md-6">
 							<div class="card bg-secondary shadow">
 								<div class="card-header bg-white border-0">

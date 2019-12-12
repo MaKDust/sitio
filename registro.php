@@ -1,44 +1,37 @@
 <?php
-
-require_once 'controladores/funciones.php';
 session_start();
+require_once 'controladores/funciones.php';
 
+
+//si esta logueado no puede entrar
 if (isset($_SESSION['email'])) {
   ?>
   <a href="logout.php"><button>Desloguete</button></a>
   <?php
  exit();
 }
-?>
 
-<?php
-
-$arrayDeErrores = "";
-
+  $arrayDeErrores = "";
  //ejecutamos la funcion validarRegistracion si hay post
-if ($_POST) {
-  $arrayDeErrores = validarRegistracion($_POST);
-  if ($arrayDeErrores){
-   
-    //registro usuario en un array "usuarioFinal"
-    $usuarioFinal = [
-        'nombre' => trim($_POST['nombre']),
-        'apellido' => trim($_POST['apellido']),
-        'email' => $_POST['email'],
-        'telefono' => trim($_POST['telefono']),
-        'direccion' => trim($_POST['direccion']),
-        'ciudad' => trim($_POST['ciudad']),
-        'pais' => trim($_POST['pais']),
-        'codigoPostal' => trim($_POST['codigoPostal']),
-        'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
-    ];
-    //Envio a la base de datos $usuarioFinal
-    //transformo en json el array $usuarioFinal y lo guardo en la variable $jsonDeUsuario
-    $jsonDeUsuario = json_encode($usuarioFinal);
-    //poner el contenido de $jsonDeUsuario en el archivo usuarios.json con FILE_APPEND para que no me pise los registros y me sume a lo que ya estaba antes y concateno . PHP_EOL para que guarde uno por linea End Of Line
-    file_put_contents('usuarios.json', $jsonDeUsuario . PHP_EOL, FILE_APPEND);
-  } 
-}
+  if ($_POST) {
+    $arrayDeErrores = validarRegistracion($_POST);
+    if ($arrayDeErrores){
+      $usuarioFinal = [
+          'nombre' => trim($_POST['nombre']),
+          'apellido' => trim($_POST['apellido']),
+          'email' => $_POST['email'],
+          'telefono' => trim($_POST['telefono']),
+          'direccion' => trim($_POST['direccion']),
+          'ciudad' => trim($_POST['ciudad']),
+          'pais' => trim($_POST['pais']),
+          'codigoPostal' => trim($_POST['codigoPostal']),
+          'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+          
+      ];
+      $jsonDeUsuario = json_encode($usuarioFinal);
+      file_put_contents('usuarios.json', $jsonDeUsuario . PHP_EOL, FILE_APPEND);
+    }
+  }
 
 ?>
 
@@ -58,13 +51,14 @@ if ($_POST) {
   <body>
     
     <div>
+      
        <?php require_once 'partials/header.php' ?>
       
       <section class="container-fluid registro">
         <div class="row">
           <div class="col-md-4"></div>
           <div class="col-md-4">
-            <form action= " "  method="post">
+            <form action= ""  method="post">
               <h4>Registro de Usuario:</h4>
               <div class="form-group">
                 <label for="nombre">Nombre</label>
@@ -180,7 +174,7 @@ if ($_POST) {
               </div>
               <div class="form-group">
                 <label for="password">Contraseña</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" >
                 <small class="text-danger pull-right">
                   <?= isset($arrayDeErrores['password']) ? $arrayDeErrores['password'] : "" ?>
                 </small>
@@ -192,7 +186,7 @@ if ($_POST) {
                   <?= isset($arrayDeErrores['repassword']) ? $arrayDeErrores['repassword'] : "" ?>
                 </small>
               </div>
-              <button type="submit" name="Submit" class="btn btn-primary pull-right">Registrarse</button>
+              <button class="btn btn-primary pull-right" name="">Registrarse</button>
             </form>
           </div>
           <div class="col-md-4"></div>
