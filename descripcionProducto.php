@@ -1,6 +1,7 @@
-<?php 
+<?php  
 session_start();
- ?>
+require_once 'controladores/funciones.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">

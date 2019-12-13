@@ -153,6 +153,16 @@ function abrirBBDD($unArchivo) {
     return $explodeDeUsuarios;
 }
 
+if(isset($_SESSION['email'])) {
+  $nombre_fichero = '/xampp/htdocs/fullstack/Sitio/img/'.$_SESSION['telefono'].'.jpg';
+$fotoPerfilUsuario="";
+if (file_exists($nombre_fichero)) {
+    $fotoPerfilUsuario= 'img/'.$_SESSION['telefono'].'.jpg';
+} else {
+    $fotoPerfilUsuario="img/fotoPerfil.jpg";
+}
+
+}
 
 
  ?>

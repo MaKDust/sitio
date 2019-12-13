@@ -1,3 +1,7 @@
+<?php  
+session_start();
+require_once 'controladores/funciones.php';
+?>
 <div class="container-fluid footer"><!-- Footer -->
 			<div class="row">
 				<div class="col-lg-5 col-xs-12 about-company">
@@ -17,7 +21,8 @@
 				    	<?php if(isset($_SESSION['email'])): ?>
 		                <li><a href="contacto.php">Contacto</a></li>
 		                <li><a href="preguntas.php">Preguntas Frecuentes</a></li>
-		                <li><a href="logout.php">Log out</a></li>               
+		                <li><a href="logout.php">Log out</a></li>
+		                              
 		           		 <?php endif; ?>
 		            </ul>
 		            <ul class="m-0 p-0">

@@ -29,6 +29,7 @@ if($_POST) {
 		       	if(isset($_POST['recordarme']) && $_POST['recordarme'] == "on") {
 		        	setcookie('userEmail', $userFinal['email'], time() + 60 * 60 * 24 * 7);
 		            setcookie('userPass', $userFinal['password'], time() + 60 * 60 * 24 * 7);
+		            setcookie('telefono', $userFinal['telefono'], time() + 60 * 60 * 24 * 7);
 		        }
 	        header('Location: perfil.php');
 	        }else{

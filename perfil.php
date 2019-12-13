@@ -1,34 +1,23 @@
 <?php  	
-
-
-
-require_once 'controladores/funciones.php';
 session_start();
-
+require_once 'controladores/funciones.php';
 
 if (isset($_POST['enviarFoto'])) { 
 	$foto = $_FILES['foto'];
-	
 	$nombreFoto = $_FILES['foto']['name'];
 	$extensionFoto = $_FILES['foto']['type'];
 	$nombreFotoTemporal = $_FILES['foto']['tmp_name'];
 	$errorFoto = $_FILES['foto']['error'];
 	$tamanioFoto = $_FILES['foto']['size'];
 
-			$separar = explode('.', $nombreFoto);
-			$extencion = strtolower(end($separar));
-			$nombreNuevo = $_SESSION['telefono'].'.'.$extencion;
+			$nombreNuevo = $_SESSION['telefono'].'.jpg';
 			$destinoFoto = 'img/'.$nombreNuevo;
-
 			$arrayDeErrores = validarRegistracion($_POST);
-		    
-			$_SESSION['nombrefoto'] = $nombreNuevo;
+		    $_SESSION['nombrefoto'] = $nombreNuevo;
 			move_uploaded_file($nombreFotoTemporal, $destinoFoto);
 			header("Location: perfil.php?exito");
 		
 }
-
-
 
 if($_SESSION['email']) {
 	$arrayDeErrores = validarRegistracion($_POST);
@@ -60,15 +49,6 @@ if($_SESSION['email']) {
 //  exit();
 // }
 
-
-
-
-
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +73,7 @@ if($_SESSION['email']) {
 					<div class="col-md-1"></div>
 					<div class="col-md-2 "> 
 						<h4 class="text-center">FOTO PERFIL</h4> 
-						<img class="img-responsive" src= <?= isset($_SESSION['nombrefoto']) ?"img/".$_SESSION['nombrefoto'] : "img/fotoPerfil.jpg" ?>>
+						<img class="img-responsive" src= <?= $fotoPerfilUsuario ?>>
 						<form action="" method="POST" enctype="multipart/form-data" accept="image/*">
 							<input name="foto" type="file" />
 							<button type="submit" name="enviarFoto">Enviar fichero</button>

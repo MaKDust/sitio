@@ -1,5 +1,9 @@
-<?php session_start(); ?>
-<?php include("preguntasfrecuentes.php"); ?>
+<?php  
+session_start();
+require_once 'controladores/funciones.php';
+include("preguntasfrecuentes.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
