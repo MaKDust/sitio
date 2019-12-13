@@ -119,16 +119,13 @@ function validarRegistracion($unArray){
       }
     }
     
-    //si esta todo bien que la funcion retorne true
-    //si el array de errores esta vacio retorna true
-    //sino muestra los errores
+    
     if (count($errores) === 0 ) {
       return true;
     }else{
       return $errores;
     }
   }
-
 
 function persistirDato($arrayE, $campo) {
     if(isset($arrayE[$campo]) ) {
@@ -139,9 +136,6 @@ function persistirDato($arrayE, $campo) {
         }
     }
 }
-
-
-
 
 function abrirBBDD($unArchivo) {
   //obtengo del archivo usuarios.json su contenido y lo guardo en $usuariosGuardados
@@ -155,13 +149,12 @@ function abrirBBDD($unArchivo) {
 
 if(isset($_SESSION['email'])) {
   $nombre_fichero = '/xampp/htdocs/fullstack/Sitio/img/'.$_SESSION['telefono'].'.jpg';
-$fotoPerfilUsuario="";
-if (file_exists($nombre_fichero)) {
+  $fotoPerfilUsuario="";
+  if (file_exists($nombre_fichero)) {
     $fotoPerfilUsuario= 'img/'.$_SESSION['telefono'].'.jpg';
-} else {
+  } else {
     $fotoPerfilUsuario="img/fotoPerfil.jpg";
-}
-
+    }
 }
 
 

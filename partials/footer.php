@@ -1,5 +1,4 @@
 <?php  
-session_start();
 require_once 'controladores/funciones.php';
 ?>
 <div class="container-fluid footer"><!-- Footer -->

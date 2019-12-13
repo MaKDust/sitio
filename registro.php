@@ -2,8 +2,6 @@
 session_start();
 require_once 'controladores/funciones.php';
 
-
-//si esta logueado no puede entrar
 if (isset($_SESSION['email'])) {
   ?>
   <a href="logout.php"><button>Desloguete</button></a>
@@ -12,7 +10,6 @@ if (isset($_SESSION['email'])) {
 }
 
   $arrayDeErrores = "";
- //ejecutamos la funcion validarRegistracion si hay post
   if ($_POST) {
     $arrayDeErrores = validarRegistracion($_POST);
     if ($arrayDeErrores){
@@ -46,14 +43,10 @@ if (isset($_SESSION['email'])) {
 
       <!--FONTAWOSON-->
       <script src="https://kit.fontawesome.com/3b98d2cca3.js" crossorigin="anonymous"></script>
-
   </head>
   <body>
-    
     <div>
-      
-       <?php require_once 'partials/header.php' ?>
-      
+      <?php require_once 'partials/header.php' ?>
       <section class="container-fluid registro">
         <div class="row">
           <div class="col-md-4"></div>

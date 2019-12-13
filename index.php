@@ -13,16 +13,13 @@ require_once 'controladores/funciones.php';
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
 		<!--CSS-->
     	<link rel="stylesheet" href="css/styles.css">
 		<!--FONTAWOSON-->
     	<script src="https://kit.fontawesome.com/3b98d2cca3.js" crossorigin="anonymous"></script>
-
 	</head>
 	<body>	
-		 <?php require_once 'partials/header.php' ?><!-- Header -->
-			
+		<?php require_once 'partials/header.php' ?><!-- Header -->
 		<div class="container-fluid carrusel"><!-- Carrusel -->
 			<div class="row">
 				<div class="banner col-md-12">
@@ -68,15 +65,10 @@ require_once 'controladores/funciones.php';
 				</div>
 			</div>
 		</div><!-- FIN CARRUSEL-->					
-		
 		<div class="container-fluid"><!-- PRODUCTOS -->
-			
 			<div class="col-md-3 column productbox">
 				<a href="descripcionProducto.php">
-					<img 
-					src="http://placehold.it/460x250/e67e22/ffffff&text=HTML5" 
-					class="img-responsive"
-					>
+				<img src="http://placehold.it/460x250/e67e22/ffffff&text=HTML5" class="img-responsive">
 				</a>
 				<div class="producttitle">
 					<p>Producto</p>
@@ -189,13 +181,9 @@ require_once 'controladores/funciones.php';
 				</div>
 			</div>
 		</div><!--/Productos -->
-
 		 <?php require_once 'partials/footer.php' ?><!--Footer -->	
-
 		<script	src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="crossorigin="anonymous"></script>
 		<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous"></script>
-
-
 	</body>
 </html>
