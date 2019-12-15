@@ -1,6 +1,50 @@
 <?php  
 session_start();
 require_once 'controladores/funciones.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require "PHPMailer/Exception.php";
+require "PHPMailer/PHPMailer.php";
+require "PHPMailer/SMTP.php";
+
+if(isset($_POST["submitComentario"])){
+  if($_POST["nombre"]==""||$_POST["email"]==""||$_POST["asunto"]==""||$_POST["comentario"]==""){
+    echo "Debe completar todos los campos..";
+  }else{
+    $email=$_POST['email'];
+    $email =filter_var($email, FILTER_SANITIZE_EMAIL);
+    $email= filter_var($email, FILTER_VALIDATE_EMAIL);
+    if (!$email){
+      echo "Email invalido";
+    }else{
+      $mail = new PHPMailer(true);
+      try {
+        //Server settings
+        $mail->SMTPDebug = 0;
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'contactositio2020@gmail.com';
+        $mail->Password   = '2020sitiocontacto';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
+        //Recepcion de mail
+        $mail->setFrom('contactositio2020@gmail.com', 'DE'." ".$_POST["email"]);
+        $mail->addAddress('contactositio2020@gmail.com', 'Community manager');
+        $mail->isHTML(true);
+        $mail->Subject    = $_POST['asunto'];
+        $mail->Body       = '<br />'.'De usuario:'." ".$_POST["nombre"].'<br /><br />'.$_POST["comentario"];
+        $mail->send();
+        echo 'Enviado';
+      }catch (Exception $e) {
+        echo "Error: {$mail->ErrorInfo}";
+      }
+    }
+  }
+}
+
 ?>
 
 
@@ -23,7 +67,7 @@ require_once 'controladores/funciones.php';
       <div class="col-md-2"></div>
         <div class="col-md-4">
           <!--Form with header-->
-          <form method="post" action="enviar_email.php">
+          <form method="post" action="#">
             <div class="card-body">
               <!--Header-->
               <div class="form-header blue accent-1">
@@ -53,7 +97,7 @@ require_once 'controladores/funciones.php';
                 <textarea id="comentario" name="comentario" class="form-control md-textarea" rows="3"></textarea>
               </div>
               <div class="text-center mt-4">
-                <button class="btn btn-primary" name="enviar" type="submit" value="Enviar" >Enviar</button>
+                <button class="btn btn-primary" name="submitComentario" type="submit" value="Enviar" >Enviar</button>
               </div>
             </div>
           </form>

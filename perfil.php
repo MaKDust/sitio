@@ -70,7 +70,8 @@ if($_SESSION['email']) {
 						<img class="img-responsive" src= <?= $fotoPerfilUsuario ?>>
 						<form action="" method="POST" enctype="multipart/form-data" accept="image/*">
 							<input name="foto" type="file" />
-							<button type="submit" name="enviarFoto">Enviar fichero</button>
+							<button type="submit" class="btn btn-success" name="enviarFoto">Enviar</button>
+							
 						</form>
 					</div>
 					<div class="col-md-1"></div>
