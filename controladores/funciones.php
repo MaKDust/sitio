@@ -46,9 +46,21 @@ function validarRegistracion($unArray){
               $errores['email'] = "Este Email ya tiene una cuenta registrada.";
             }
       }
+      elseif ($_POST) {
+          $arrayUsuarios = abrirBBDD('usuarios.json');
+          foreach ($arrayUsuarios as $usuarioJson) {
+            $userFinal = json_decode($usuarioJson, true);
+            if ($_POST['email'] == $userFinal['email']){
+              $errores['email'] = "Este Email ya tiene una cuenta registrada.";
+            }
+      }
     }
   }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 71dc9797913200b19f647f26d9958ed9846a0100
     //validar campo "telefono"
     if(isset($unArray['telefono'])) {
       if(empty($unArray['telefono'])) {
@@ -118,8 +130,13 @@ function validarRegistracion($unArray){
           $errores['repassword'] = "Tu contraseña no coinciden";
       }
     }
+<<<<<<< HEAD
 
 
+=======
+    
+    
+>>>>>>> 71dc9797913200b19f647f26d9958ed9846a0100
     if (count($errores) === 0 ) {
       return true;
     }else{

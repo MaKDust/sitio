@@ -1,4 +1,53 @@
-<?php  ?>
+<?php  	
+session_start();
+require_once 'controladores/funciones.php';
+
+if (isset($_POST['enviarFoto'])) { 
+	$foto = $_FILES['foto'];
+	$nombreFoto = $_FILES['foto']['name'];
+	$extensionFoto = $_FILES['foto']['type'];
+	$nombreFotoTemporal = $_FILES['foto']['tmp_name'];
+	$errorFoto = $_FILES['foto']['error'];
+	$tamanioFoto = $_FILES['foto']['size'];
+
+			$nombreNuevo = $_SESSION['telefono'].'.jpg';
+			$destinoFoto = 'img/'.$nombreNuevo;
+			$arrayDeErrores = validarRegistracion($_POST);
+		    $_SESSION['nombrefoto'] = $nombreNuevo;
+			move_uploaded_file($nombreFotoTemporal, $destinoFoto);
+			header("Location: perfil.php?exito");
+}
+
+if($_SESSION['email']) {
+	$arrayDeErrores = validarRegistracion($_POST);
+    if($arrayDeErrores) {
+	    $arrayUsuarios = abrirBBDD('usuarios.json');
+	    foreach ($arrayUsuarios as $usuarioJson) {
+	      $userFinal = json_decode($usuarioJson, true);
+	       if ($_SESSION['email'] == $userFinal['email']) {
+	       	if ($_SESSION['password'] = $userFinal['password']) {
+	        	$_SESSION['nombre'] = $userFinal['nombre'];
+	        	$_SESSION['apellido']  = $userFinal['apellido'];
+		        $_SESSION['email'] = $userFinal['email'];
+		        $_SESSION['telefono'] = $userFinal['telefono'];
+		        $_SESSION['direccion'] = $userFinal['direccion'];
+		        $_SESSION['ciudad'] = $userFinal['ciudad'];
+		        $_SESSION['pais'] = $userFinal['pais'];
+		        $_SESSION['codigoPostal'] = $userFinal['codigoPostal'];
+		    }
+           }
+		}
+	}
+}
+
+// if (!$_SESSION['logged_in'] = true) {
+//   '?'>
+//   <!--<a href="logout.php"><button>Debes loguearte</button></a>-->
+//   <?php
+//  exit();
+// }
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,41 +57,24 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<!--CSS-->
     	<link rel="stylesheet" href="css/styles.css">
-
     	<!--FONTAWOSON-->
     	<script src="https://kit.fontawesome.com/3b98d2cca3.js" crossorigin="anonymous"></script>
-
 	</head>
-	<body>
-		
-		<div>
-			<header>
-				<nav class="navbar navbar-default">
-				  <div class="container">
-				    <div class="navbar-header">
-				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				        <span class="sr-only">Toggle navigation</span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				      </button>
-				      <a class="navbar-brand" href="index.php">Sitio</a>
-				    </div>
-		
-				    <ul class="nav navbar-nav navbar-right">
-				    	<li><a href="contacto.php">Contacto</a></li>
-				    	<li><a href="preguntas.php">Preguntas Frecuentes</a></li>
-				    	<li><a href="carrito.php"><i class="fas fa-shopping-basket p-2"></i></a></li>
-				    	<li><a href="perfil.php">lucky.jesse</a></li>
-
-				    </ul>
-				  </div>
-				</nav>
-			</header>
-			
+	<body>	
+		<?php require_once 'partials/header.php' ?>
 			<section class="container-fluid perfil">
 				<div class="row">
-					<div class="col-md-3"></div>
+					<div class="col-md-1"></div>
+					<div class="col-md-2 "> 
+						<h4 class="text-center">FOTO PERFIL</h4> 
+						<img class="img-responsive" src= <?= $fotoPerfilUsuario ?>>
+						<form action="" method="POST" enctype="multipart/form-data" accept="image/*">
+							<input name="foto" type="file" />
+							<button type="submit" class="btn btn-success" name="enviarFoto">Enviar</button>
+							
+						</form>
+					</div>
+					<div class="col-md-1"></div>
 						<div class="col-md-6">
 							<div class="card bg-secondary shadow">
 								<div class="card-header bg-white border-0">
@@ -62,14 +94,14 @@
 											<div class="row">
 												<div class="col-lg-6">
 													<div class="form-group focused">
-														<label class="form-control-label" for="input-username">Apodo</label>
-														<p>lucky.jesse</p>
+														<label class="form-control-label" for="input-nombre">Nombre</label>
+														<p><?= $_SESSION['nombre']?></p>
 													</div>
 												</div>
 												<div class="col-lg-6">
 													<div class="form-group">
-														<label class="form-control-label" for="input-email">Email </label>
-														<p>lucky@jesse.com</p>
+														<label class="form-control-label" for="input-email">Apellido </label>
+														<p><?= $_SESSION['apellido']?></p>
 													</div>
 												</div>
 											</div>
@@ -77,13 +109,13 @@
 												<div class="col-lg-6">
 													<div class="form-group focused">
 														<label class="form-control-label" for="input-first-name">Nombre</label>
-														<p>lucky</p>
+														<p><?= $_SESSION['email']?></p>
 													</div>
 												</div>
 												<div class="col-lg-6">
 													<div class="form-group focused">
-														<label class="form-control-label" for="input-last-name">Apellido</label>
-														<p>jesse</p>
+														<label class="form-control-label" for="input-last-name">Telefono</label>
+														<p><?= $_SESSION['telefono']?></p>
 													</div>
 												</div>
 											</div>
@@ -96,7 +128,7 @@
 												<div class="col-md-12">
 													<div class="form-group focused">
 														<label class="form-control-label" for="input-address">Direccion</label>
-														<p>25 de Mayo 772</p>
+														<p><?= $_SESSION['direccion']?></p>
 													</div>
 												</div>
 											</div>
@@ -104,19 +136,19 @@
 												<div class="col-lg-4">
 													<div class="form-group focused">
 														<label class="form-control-label" for="input-city">Ciudad</label>
-														<p>San Miguel de Tucuman</p>
+														<p><?= $_SESSION['ciudad']?></p>
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group focused">
-														<label class="form-control-label" for="input-country">Provincia</label>
-														<p>Tucuman</p>
+														<label class="form-control-label" for="input-country">Pais</label>
+														<p><?= $_SESSION['pais']?></p>
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group">
 														<label class="form-control-label" for="input-country">Codigo postal</label>
-														<p>4000</p>
+														<p><?= $_SESSION['codigoPostal']?></p>
 													</div>
 												</div>
 											</div>
@@ -128,61 +160,8 @@
 						</div>
 				</div>
 			</section>	
-			<div class="container-fluid footer"><!-- Footer -->
-			<div class="row">
-				<div class="col-lg-5 col-xs-12 about-company">
-					<h2>Redes Sociales</h2>
-				    <p class="pr-5 text-white-50">Seguinos en nuestras redes y enterate de todas nuestras ofertas de ultima hora</p>
-				    <p>
-				    	<a href="#"><i class="fab fa-facebook-square"></i></a>
-						<a href="#"><i class="fab fa-twitter-square"></i></a>
-						<a href="#"><i class="fab fa-linkedin"></i></a>
-						<a href="#"><i class="fab fa-youtube-square"></i></a>
-						<a href="#"><i class="fab fa-instagram"></i></a>
-				    </p>
-				</div>
-				<div class="col-lg-3 col-xs-12 links">
-					<h4 class="mt-lg-0 mt-sm-3">Mapa del Sitio</h4>
-				    <ul class="m-0 p-0">
-				    	<li>- <a href="index.php">Inicio</a></li>
-				    	<li>- <a href="contacto.php">Contacto</a></li>
-					    <li>- <a href="preguntas.php">Preguntas Frecuentes</a></li>
-					</ul>
-				</div>
-				<div class="col-lg-4 col-xs-12 location">
-					<h4 class="mt-lg-0 mt-sm-4">Contactos</h4>
-				    <p><i class="fas fa-home"></i></i>  Calle Falsa Sin Numero</p>
-				    <p class="mb-0"><i class="fa fa-phone p-3"></i>  (381) 555-5555</p>
-				    <p><i class="fa fa-envelope-o mr-3"></i>  info@sitio.com</p>
-				</div>
-			</div>
-		</div><!--/Footer -->		
-
-			<!--<section class="container-fluid perfil">
-				<div class="banner col-md-2"></div>
-				<div class="col-md-8">
-					<div class="panel panel-default">
-					  <div class="panel-body">
-					    <h4>Perfil de Usuario</h4>
-						<p>Nombre: </p> 
-						<p>Apellido: </p>
-						<p>Teléfono: </p>
-						<p>Email: </p>
-					  </div>
-					</div>
-				<div class="col-md-2"></div>
-				</div>
-				
-			</section>-->
-		</div>
-		
-
-		
-
-		<script
-			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-			  crossorigin="anonymous"></script>
+			<?php require_once 'partials/footer.php' ?><!--Footer -->		
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	</body>
 </html>

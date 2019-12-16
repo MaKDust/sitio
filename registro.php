@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <? php
 session_start ();
 require_once  ' controladores / funciones.php ' ;
@@ -6,6 +7,17 @@ if ( isset ( $ _SESSION [ ' correo electrónico ' ])) {
   < Un  href = " logout.php " > < botón > Desloguete </ botón > </ una >
   <? php
  salida ();
+=======
+<?php
+session_start();
+require_once 'controladores/funciones.php';
+
+if (isset($_SESSION['email'])) {
+  ?>
+  <a href="logout.php"><button>Desloguete</button></a>
+  <?php
+ exit();
+>>>>>>> 71dc9797913200b19f647f26d9958ed9846a0100
 }
   $ arrayDeErrores  =  " " ;
   if ( $ _POST ) {
@@ -22,6 +34,7 @@ if ( isset ( $ _SESSION [ ' correo electrónico ' ])) {
           ' codigoPostal '  =>  trim ( $ _POST [ ' codigoPostal ' ]),
           ' password '  =>  password_hash ( $ _POST [ ' contraseña ' ], PASSWORD_DEFAULT )
 
+<<<<<<< HEAD
       ];
       $ jsonDeUsuario  =  json_encode ( $ usuarioFinal );
       file_put_contents ( ' usuarios.json ' , $ jsonDeUsuario  .  PHP_EOL , FILE_APPEND );
@@ -59,6 +72,61 @@ if ( isset ( $ _SESSION [ ' correo electrónico ' ])) {
                 clase = " control de formulario "
                 marcador de posición = " Nombre "
                 value = " <? = persistirDato ( $ arrayDeErrores , ' nombre ' ) ? > "
+=======
+  $arrayDeErrores = "";
+  if ($_POST) {
+    $arrayDeErrores = validarRegistracion($_POST);
+    if ($arrayDeErrores){
+      $usuarioFinal = [
+          'nombre' => trim($_POST['nombre']),
+          'apellido' => trim($_POST['apellido']),
+          'email' => $_POST['email'],
+          'telefono' => trim($_POST['telefono']),
+          'direccion' => trim($_POST['direccion']),
+          'ciudad' => trim($_POST['ciudad']),
+          'pais' => trim($_POST['pais']),
+          'codigoPostal' => trim($_POST['codigoPostal']),
+          'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+          
+      ];
+      $jsonDeUsuario = json_encode($usuarioFinal);
+      file_put_contents('usuarios.json', $jsonDeUsuario . PHP_EOL, FILE_APPEND);
+    }
+  }
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!--CSS-->
+      <link rel="stylesheet" href="css/styles.css">
+
+      <!--FONTAWOSON-->
+      <script src="https://kit.fontawesome.com/3b98d2cca3.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div>
+      <?php require_once 'partials/header.php' ?>
+      <section class="container-fluid registro">
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <form action= ""  method="post">
+              <h4>Registro de Usuario:</h4>
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input 
+                type="text" 
+                name="nombre" 
+                id="nombre" 
+                class="form-control" 
+                placeholder="Nombre" 
+                value="<?= persistirDato($arrayDeErrores, 'nombre') ?>"
+>>>>>>> 71dc9797913200b19f647f26d9958ed9846a0100
                 >
                 < small  class = " text-danger pull-right " >
                   <? = isset ( $ arrayDeErrores [ ' nombre ' ])? $ arrayDeErrores [ ' nombre ' ]: " " ? >
@@ -158,6 +226,7 @@ if ( isset ( $ _SESSION [ ' correo electrónico ' ])) {
                 marcador de posición = " Codigo Postal "
                 value = " <? = persistirDato ( $ arrayDeErrores , ' codigoPostal ' ) ? > "
                 >
+<<<<<<< HEAD
                 < small  class = " text-danger pull-right " >
                   <? = isset ( $ arrayDeErrores [ ' codigoPostal ' ])? $ arrayDeErrores [ ' codigoPostal ' ]: " " ? >
                 </ pequeño >
@@ -191,3 +260,38 @@ if ( isset ( $ _SESSION [ ' correo electrónico ' ])) {
     < Guión  src = " https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js "  integridad = " sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa "  crossorigin = " Anónimo " > </ script de >
   </ cuerpo >
 </ html >
+=======
+                <small class="text-danger pull-right">
+                  <?= isset($arrayDeErrores['codigoPostal']) ? $arrayDeErrores['codigoPostal'] : "" ?>
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" >
+                <small class="text-danger pull-right">
+                  <?= isset($arrayDeErrores['password']) ? $arrayDeErrores['password'] : "" ?>
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="repassword">Repetir Contraseña</label>
+                <input type="password" name="repassword" id="repassword" class="form-control" placeholder="Repetir Contraseña">
+                <small class="text-danger pull-right">
+                  <?= isset($arrayDeErrores['repassword']) ? $arrayDeErrores['repassword'] : "" ?>
+                </small>
+              </div>
+              <button class="btn btn-primary pull-right" name="">Registrarse</button>
+            </form>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+      </section>
+    </div>
+    <?php require_once 'partials/footer.php' ?><!--Footer --> 
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>
+>>>>>>> 71dc9797913200b19f647f26d9958ed9846a0100
