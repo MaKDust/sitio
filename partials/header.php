@@ -14,7 +14,7 @@
             <div class="col-md-4"></div>
             <ul class="nav navbar-nav navbar-right ">
             <?php if(isset($_SESSION['email'])): ?>
-                <li><div class="col-sm-1 style" style="width: 6rem; margin-top: 25%"><a href="perfil.php"><img class="img-responsive" src= <?= $fotoPerfilUsuario ?>></a></div></li>
+                <li><div class="col-sm-1 style" style="width: 6rem; margin-top: 25%; top: -4px; left: 20px;"><a href="perfil.php"><img class="img-responsive" src= <?= $fotoPerfilUsuario ?>></a></div></li>
                 <li><a href="perfil.php"><?= $_SESSION['nombre']?></a></li>
                 <li><a href="carrito.php"><i class="fas fa-shopping-basket p-2"></i></a></li>
                 <li><a href="preguntas.php">Preguntas Frecuentes</a></li>
