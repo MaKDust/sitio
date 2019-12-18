@@ -77,7 +77,7 @@ if(isset($_POST["submitComentario"])){
               <div class="md-form">
                 <i class="fas fa-user prefix grey-text"></i>
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" class="form-control">
+                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="">
               </div>
               <div class="md-form">
                 <i class="fas fa-envelope prefix grey-text"></i>
